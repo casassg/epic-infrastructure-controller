@@ -1,21 +1,29 @@
 import yaml
+from builtins import FileNotFoundError
 from kubernetes import client, config
 from kubernetes.client.rest import ApiException
+
+
+def load_config():
+    try:
+        config.load_kube_config()
+    except FileNotFoundError:
+        config.load_incluster_config()
 
 
 def get_pod_ips():
     # Configs can be set in Configuration class directly or using helper utility
 
-    config.load_kube_config()
+    load_config()
 
     v1 = client.CoreV1Api()
     print("Listing pods with their IPs:")
     ret = v1.list_pod_for_all_namespaces(watch=False)
-    return map(lambda x: x.status.pod_ip, ret.items)
+    return list(map(lambda x: x.status.pod_ip, ret.items))
 
 
 def apply_deployment(event_code, keywords):
-    config.load_kube_config()
+    load_config()
 
     with open("k8sdeployments/event_parser.yaml") as f:
         name = '%s-event-parser' % event_code

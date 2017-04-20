@@ -6,7 +6,6 @@ from kafka import KafkaConsumer
 
 import k8scontroller
 
-tokens = os.environ.get('TOKENS', '').split(',')
 bootstrap_servers = os.environ.get('KAFKA_SERVERS', 'localhost:9092').split(',')
 topic = os.environ.get('KAFKA_TOPIC', 'events')
 
@@ -44,7 +43,6 @@ if __name__ == "__main__":
     logging.info('Checking Kubernetes connection...')
     logging.info('Kubernetes current pods ips: %s' % k8scontroller.get_pod_ips())
 
-    logging.info('Tracking keywords: %s' % ','.join(tokens))
     logging.info('Kafka servers: %s' % ','.join(bootstrap_servers))
     logging.info('Start tracking changes')
     # main()
