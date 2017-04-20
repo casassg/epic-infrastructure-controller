@@ -20,8 +20,11 @@ spec:
         resources:
           limits:
            memory: 50Mi
+           cpu: "50m"
           requests:
            memory: 50Mi
+           cpu: "50m"
+
         env:
             - name: ACCESS_TOKEN
               value: {{a_token}}

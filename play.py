@@ -36,7 +36,7 @@ def main():
         elif action == UPDATE_ACTION and type_ == QUERIES_TYPE:
             queries = value['data']
             try:
-                k8scontroller.apply_eventparser(queries)
+                k8scontroller.update_queries(queries)
                 logging.info('Updated twitter streaming with queries: %s' % queries)
             except KeyError:
                 logging.info('Message received was not formatted correctly. Message:\n %s' % data)

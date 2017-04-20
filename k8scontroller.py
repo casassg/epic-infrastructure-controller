@@ -57,7 +57,7 @@ def update_queries(queries):
                 .replace('{{a_token_secret}}', ACCESS_TOKEN_SECRET) \
                 .replace('{{c_key}}', CONSUMER_KEY) \
                 .replace('{{c_secret}}', CONSUMER_SECRET) \
-                .replace('{{queries}}', queries)
+                .replace('{{queries}}', ','.join(queries))
         )
 
         k8s_beta = client.ExtensionsV1beta1Api()

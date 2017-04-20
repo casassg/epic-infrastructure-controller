@@ -17,8 +17,10 @@ spec:
         resources:
           limits:
            memory: 50Mi
+           cpu: "50m"
           requests:
            memory: 50Mi
+           cpu: "50m"
         env:
             - name: EVENT_KEY
               value: {{code}}
