@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: twitter-streaming
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: twitter-streaming
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: twitter-streaming
+        image: casassg/twitter-stream-python:1.0.10-alpha
+        resources:
+          limits:
+           memory: 50Mi
+          requests:
+           memory: 50Mi
+        env:
+            - name: ACCESS_TOKEN
+              value: {{a_token}}
+            - name: ACCESS_TOKEN_SECRET
+              value: {{a_token_secret}}
+            - name: CONSUMER_KEY
+              value: {{c_key}}
+            - name: CONSUMER_SECRET
+              value: {{c_secret}}
+            - name: TOKENS
+              value: {{queries}}
+            - name: KAFKA_SERVERS
+              value: kafka-0.broker.kafka.svc.cluster.local:9092, kafka-1.broker.kafka.svc.cluster.local:9092
+

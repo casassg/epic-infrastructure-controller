@@ -29,8 +29,15 @@ def main():
             data = value['data']
             try:
                 if data['tracking']:
-                    k8scontroller.apply_deployment(data['code'], data['query'])
+                    k8scontroller.apply_eventparser(data['code'], data['query'])
                     logging.info('Created event partser for event: %s' % data['code'])
+            except KeyError:
+                logging.info('Message received was not formatted correctly. Message:\n %s' % data)
+        elif action == UPDATE_ACTION and type_ == QUERIES_TYPE:
+            queries = value['data']
+            try:
+                k8scontroller.apply_eventparser(queries)
+                logging.info('Updated twitter streaming with queries: %s' % queries)
             except KeyError:
                 logging.info('Message received was not formatted correctly. Message:\n %s' % data)
 
