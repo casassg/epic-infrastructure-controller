@@ -18,18 +18,18 @@ IGNORE_ACTION = 'ignore'
 
 
 def main():
-    consumer = KafkaConsumer(topic, group_id='k8scontroller-eventpartser', bootstrap_servers=bootstrap_servers,
+    consumer = KafkaConsumer(topic, group_id='k8scontroller-eventparser', bootstrap_servers=bootstrap_servers,
                              value_deserializer=lambda m: json.loads(m.decode('utf-8')))
 
     for message in consumer:
-        message = json.loads(message.value)
-        type_ = message['type']
-        action = message['action']
-        data = json.load(message['data'])
+        value = message.value
+        type_ = value['type']
+        action = value['action']
         if action == UPDATE_ACTION and type_ == EVENT_TYPE:
+            data = value['data']
             try:
                 if data['tracking']:
-                    k8scontroller.apply_deployment(data['code'], data['keywords'])
+                    k8scontroller.apply_deployment(data['code'], data['query'])
                     logging.info('Created event partser for event: %s' % data['code'])
             except KeyError:
                 logging.info('Message received was not formatted correctly. Message:\n %s' % data)
@@ -45,4 +45,4 @@ if __name__ == "__main__":
 
     logging.info('Kafka servers: %s' % ','.join(bootstrap_servers))
     logging.info('Start tracking changes')
-    # main()
+    main()

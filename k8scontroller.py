@@ -1,5 +1,4 @@
 import yaml
-from builtins import FileNotFoundError
 from kubernetes import client, config
 from kubernetes.client.rest import ApiException
 
@@ -7,7 +6,7 @@ from kubernetes.client.rest import ApiException
 def load_config():
     try:
         config.load_kube_config()
-    except FileNotFoundError:
+    except:
         config.load_incluster_config()
 
 
