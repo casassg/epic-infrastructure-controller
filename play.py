@@ -28,18 +28,18 @@ def main():
         if action == UPDATE_ACTION and type_ == EVENT_TYPE:
             data = value['data']
             try:
-                if data['tracking']:
-                    k8scontroller.apply_eventparser(data['code'], data['query'])
+                if data['tracking'] and data['tokens'].replace(' ', '').replace(',', ''):
+                    k8scontroller.apply_eventparser(data['code'], data['tokens'])
                     logging.info('Created event partser for event: %s' % data['code'])
             except KeyError:
                 logging.info('Message received was not formatted correctly. Message:\n %s' % data)
         elif action == UPDATE_ACTION and type_ == QUERIES_TYPE:
-            queries = value['data']
+            tokens = value['data']
             try:
-                k8scontroller.update_queries(queries)
-                logging.info('Updated twitter streaming with queries: %s' % queries)
+                k8scontroller.update_queries(tokens)
+                logging.info('Updated twitter streaming with queries: %s' % tokens)
             except KeyError:
-                logging.info('Message received was not formatted correctly. Message:\n %s' % data)
+                logging.info('Message received was not formatted correctly. Message:\n %s' % value)
 
 
 if __name__ == "__main__":
