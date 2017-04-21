@@ -16,7 +16,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: twitter-streaming
-        image: casassg/twitter-stream-python:1.0.10-alpha
+        image: casassg/twitter-stream-python:1.0.11-alpha
         resources:
           limits:
            memory: 50Mi
