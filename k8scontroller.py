@@ -50,7 +50,7 @@ def apply_eventparser(event_code, keywords):
 def update_queries(queries):
     load_config()
     with open("k8sdeployments/twitter_streaming.yaml") as f:
-        name = 'twitter_streaming'
+        name = 'twitter-streaming'
         dep = yaml.load(
             f.read() \
                 .replace('{{a_token}}', ACCESS_TOKEN) \
