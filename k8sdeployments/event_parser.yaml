@@ -13,7 +13,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: event-parser
-        image: casassg/event-parser-python:1.0.3-alpha
+        image: projectepic/tweet-parser:1.1.0
         resources:
           limits:
            memory: 50Mi
