@@ -7,13 +7,13 @@ spec:
   template:
     metadata:
       labels:
-        app: event-parser
+        app: tweet-cassandra
         event: {{code}}
     spec:
       terminationGracePeriodSeconds: 10
       containers:
-      - name: event-parser
-        image: projectepic/tweet-parser:1.1.2
+      - name: tweet-cassandra
+        image: projectepic/tweet-cassandra:1.1.3
         resources:
           limits:
            memory: 50Mi

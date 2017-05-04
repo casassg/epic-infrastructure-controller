@@ -31,7 +31,7 @@ def get_pod_ips():
 def apply_eventparser(event_code, keywords):
     load_config()
 
-    with open("k8sdeployments/event_parser.yaml") as f:
+    with open("k8sdeployments/tweet_cassandra.yaml") as f:
         name = '%s-event-parser' % event_code
         dep = yaml.load(
             f.read().replace('{{code}}', event_code).replace('{{keywords}}', keywords).replace('{{name}}', name))
