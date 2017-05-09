@@ -13,7 +13,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: tweet-cassandra
-        image: projectepic/tweet-cassandra:1.1.6
+        image: projectepic/tweet-cassandra:1.2.0
         resources:
           limits:
            memory: 50Mi
