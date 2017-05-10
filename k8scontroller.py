@@ -1,5 +1,6 @@
 import os
 
+import logging
 import yaml
 from kubernetes import client, config
 from kubernetes.client.rest import ApiException
@@ -25,7 +26,7 @@ def get_pod_ips():
     load_config()
 
     v1 = client.CoreV1Api()
-    print("Listing pods with their IPs:")
+    logging.info("Listing pods with their IPs:")
     ret = v1.list_pod_for_all_namespaces(watch=False)
     return list(map(lambda x: x.status.pod_ip, ret.items))
 
