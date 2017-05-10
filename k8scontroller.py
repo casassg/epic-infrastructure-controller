@@ -8,6 +8,8 @@ ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN", "ENTER YOUR ACCESS TOKEN")
 ACCESS_TOKEN_SECRET = os.environ.get("ACCESS_TOKEN_SECRET", "ENTER YOUR ACCESS TOKEN SECRET")
 CONSUMER_KEY = os.environ.get("CONSUMER_KEY", "ENTER YOUR API KEY")
 CONSUMER_SECRET = os.environ.get("CONSUMER_SECRET", "ENTER YOUR API SECRET")
+TWEET_CASSANDRA_VERSION = os.environ.get("TWEET_CASSANDRA_VERSION", "1.2.1")
+TWITTER_STREAMING_VERSION = os.environ.get("TWEET_CASSANDRA_VERSION", "1.1.0")
 
 
 def load_config():
@@ -34,7 +36,13 @@ def apply_eventparser(event_code, keywords):
     with open("k8sdeployments/tweet_cassandra.yaml") as f:
         name = '%s-event-parser' % event_code
         dep = yaml.load(
-            f.read().replace('{{code}}', event_code).replace('{{keywords}}', keywords).replace('{{name}}', name))
+            f.read()
+                .replace('{{code}}', event_code)
+                .replace('{{keywords}}', keywords)
+                .replace('{{name}}', name)
+                .replace('{{version}}', TWEET_CASSANDRA_VERSION)
+
+        )
 
         k8s_beta = client.ExtensionsV1beta1Api()
         try:
@@ -52,12 +60,13 @@ def update_queries(queries):
     with open("k8sdeployments/twitter_streaming.yaml") as f:
         name = 'twitter-streaming'
         dep = yaml.load(
-            f.read() \
-                .replace('{{a_token}}', ACCESS_TOKEN) \
-                .replace('{{a_token_secret}}', ACCESS_TOKEN_SECRET) \
-                .replace('{{c_key}}', CONSUMER_KEY) \
-                .replace('{{c_secret}}', CONSUMER_SECRET) \
+            f.read()
+                .replace('{{a_token}}', ACCESS_TOKEN)
+                .replace('{{a_token_secret}}', ACCESS_TOKEN_SECRET)
+                .replace('{{c_key}}', CONSUMER_KEY)
+                .replace('{{c_secret}}', CONSUMER_SECRET)
                 .replace('{{queries}}', ','.join(queries))
+                .replace('{{version}}', TWITTER_STREAMING_VERSION)
         )
 
         k8s_beta = client.ExtensionsV1beta1Api()

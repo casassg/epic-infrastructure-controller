@@ -16,7 +16,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: twitter-streaming
-        image: projectepic/twitter-streaming:1.1.0
+        image: projectepic/twitter-streaming:{{version}}
         resources:
           limits:
            memory: 50Mi
