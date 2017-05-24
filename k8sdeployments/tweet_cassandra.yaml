@@ -15,8 +15,6 @@ spec:
       - name: tweet-cassandra
         image: projectepic/tweet-cassandra:{{version}}
         resources:
-          limits:
-           cpu: "50m"
           requests:
            memory: 50Mi
            cpu: "50m"
