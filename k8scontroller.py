@@ -59,7 +59,7 @@ def apply_eventparser(event_code, keywords):
 def update_queries(queries):
     load_config()
     with open("k8sdeployments/twitter_streaming.yaml") as f:
-        name = 'twitter-streaming'
+        name = 'twitter2kafka'
         dep = yaml.load(
             f.read()
                 .replace('{{a_token}}', ACCESS_TOKEN)

@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: twitter-streaming
+  name: twitter2kafka
 spec:
   replicas: 1
   strategy:
@@ -11,12 +11,12 @@ spec:
   template:
     metadata:
       labels:
-        app: twitter-streaming
+        app: twitter2kafka
     spec:
       terminationGracePeriodSeconds: 10
       containers:
-      - name: twitter-streaming
-        image: projectepic/twitter-streaming:{{version}}
+      - name: twitter2kafka
+        image: projectepic/twitter2kafka:{{version}}
         resources:
           limits:
            memory: 50Mi
@@ -35,7 +35,7 @@ spec:
             - name: CONSUMER_SECRET
               value: {{c_secret}}
             - name: TOKENS
-              value: {{queries}}
+              value: "{{queries}}"
             - name: KAFKA_SERVERS
               value: kafka-0.broker.kafka.svc.cluster.local:9092, kafka-1.broker.kafka.svc.cluster.local:9092
 

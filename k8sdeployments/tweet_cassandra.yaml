@@ -22,7 +22,7 @@ spec:
             - name: EVENT_KEY
               value: {{code}}
             - name: TOKENS
-              value: {{keywords}}
+              value: "{{keywords}}"
             - name: KAFKA_SERVERS
               value: kafka-0.broker.kafka.svc.cluster.local:9092
             - name: CASSANDRA_NODES
