@@ -5,6 +5,9 @@ import yaml
 from kubernetes import client, config
 from kubernetes.client.rest import ApiException
 
+KAFKA_SERVERS = os.environ.get('KAFKA_SERVERS', 'localhost:9092')
+CASSANDRA_SERVERS = os.environ.get('CASSANDRA_SERVERS', 'localhost')
+
 ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN", "ENTER YOUR ACCESS TOKEN")
 ACCESS_TOKEN_SECRET = os.environ.get("ACCESS_TOKEN_SECRET", "ENTER YOUR ACCESS TOKEN SECRET")
 CONSUMER_KEY = os.environ.get("CONSUMER_KEY", "ENTER YOUR API KEY")
@@ -42,6 +45,10 @@ def apply_eventparser(event_code, keywords):
                 .replace('{{keywords}}', keywords)
                 .replace('{{name}}', name)
                 .replace('{{version}}', TWEET_CASSANDRA_VERSION)
+                .replace('{{kafka-servers}}', KAFKA_SERVERS)
+                .replace('{{cassandra-servers}}', CASSANDRA_SERVERS)
+
+
 
         )
 
@@ -68,6 +75,7 @@ def update_queries(queries):
                 .replace('{{c_secret}}', CONSUMER_SECRET)
                 .replace('{{queries}}', ','.join(queries))
                 .replace('{{version}}', TWITTER_STREAMING_VERSION)
+                .replace('{{kafka-servers}}', KAFKA_SERVERS)
         )
 
         k8s_beta = client.ExtensionsV1beta1Api()

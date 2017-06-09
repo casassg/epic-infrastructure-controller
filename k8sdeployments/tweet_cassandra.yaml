@@ -24,7 +24,7 @@ spec:
             - name: TOKENS
               value: "{{keywords}}"
             - name: KAFKA_SERVERS
-              value: kafka-0.broker.kafka.svc.cluster.local:9092
+              value: {{kafka-servers}}
             - name: CASSANDRA_NODES
-              value: cassandra-0.cassandra.cassandra.svc.cluster.local
+              value: {{cassandra-servers}}
 

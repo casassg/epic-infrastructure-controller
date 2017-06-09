@@ -37,5 +37,5 @@ spec:
             - name: TOKENS
               value: "{{queries}}"
             - name: KAFKA_SERVERS
-              value: kafka-0.broker.kafka.svc.cluster.local:9092, kafka-1.broker.kafka.svc.cluster.local:9092
+              value: {{kafka-servers}}
 
