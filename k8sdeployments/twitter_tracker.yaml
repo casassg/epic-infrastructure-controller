@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: twitter2kafka
+  name: twitter-tracker
 spec:
   replicas: 1
   strategy:
@@ -11,12 +11,13 @@ spec:
   template:
     metadata:
       labels:
-        app: twitter2kafka
+        app: twitter-tracker
     spec:
       terminationGracePeriodSeconds: 10
       containers:
-      - name: twitter2kafka
-        image: projectepic/twitter2kafka:{{version}}
+      - name: twitter-tracker
+        image: projectepic/twitter-tracker:{{version}}
+        imagePullPolicy: Always
         resources:
           limits:
            memory: 50Mi
@@ -24,6 +25,7 @@ spec:
           requests:
            memory: 50Mi
            cpu: "50m"
+
 
         env:
             - name: ACCESS_TOKEN

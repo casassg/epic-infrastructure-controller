@@ -4,7 +4,7 @@ push: push
 
 # To bump the Zeppelin version, bump the version in
 # zeppelin/Dockerfile and bump this tag and reset to v1.
-TAG = 1.1.17
+TAG = 1.1.20
 PROJECT_NAME = k8s-controller
 
 build:
